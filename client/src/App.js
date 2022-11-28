@@ -1,12 +1,12 @@
 import React from 'react'
 import Header from './components/Header'
-import ChatBox from './components/ChatBox'
+import ChatBox from './components/Chat/ChatBox'
 
 const App = () => {
   return (
     <div>
-      <Header/>
-      <ChatBox/>
+      <Header />
+      <ChatBox />
     </div>
   )
 }

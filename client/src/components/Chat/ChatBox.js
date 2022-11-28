@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import Chat from './Chat'
 
-const Chat = () => {
+
+
+const ChatBox = () => {
 
   let chats_temp = [
     {
@@ -35,20 +38,22 @@ const Chat = () => {
 
   const [chats, setChats] = useState([...chats_temp])
   const [message, setMessage] = useState('')
+  const [showScrollBtn, setShowScrollBtn] = useState(false)
 
   const user = 'raja'
 
+  var scrollHeight;
   useEffect(() => {
     let x = document.body.scrollHeight
     window.scrollTo(0, x)
+    scrollHeight = window.scrollY
+    // console.log(scrollHeight);
   }, [chats])
 
   function sendMessage(newMessage) {
     if (newMessage) {
       setMessage('')
-
       let current = new Date()
-
       let newId = Math.floor(Math.random() * 90000) + 10000
 
       // console.log(newId);
@@ -75,29 +80,23 @@ const Chat = () => {
     })
   }
 
+
+  window.addEventListener('scroll', () => {
+    let x = window.scrollY - scrollHeight
+    if (x < -70) {
+      setShowScrollBtn(true)
+    } else {
+      setShowScrollBtn(false)
+    }
+
+  })
+
   return (
     <div className='p-4 mb-14'>
 
       {
         chats.map((chat) => {
-          return <div key={chat.id} className={`relative p-2 shadow-sm w-3/4 mb-5 rounded-md ${chat.sender == user ? 'text-white bg-primary ml-auto mr-0' : "text-grey-dark bg-grey-light"} `}>
-            <pre className='break-words'>
-              {
-                chat.message
-              }
-            </pre>
-
-            <p className='text-right text-sm  opacity-50'>
-              <small >{chat.time}</small>
-            </p>
-
-            <div className='cursor-pointer absolute top-1 right-1 text-sm'
-              onClick={()=>{
-                deleteChat(chat.id)
-              }}
-            >&#128465;</div>
-
-          </div>
+          return <Chat key={chat.id} chat={chat} user={user} deleteChat={deleteChat} />
         })
       }
 
@@ -119,9 +118,21 @@ const Chat = () => {
           }}
         >Send</button>
       </div>
+
+      {
+        showScrollBtn && <div className='cursor-pointer fixed bottom-16 right-1/2 h-10 w-10 bg-primary border-2 border-grey-dark rounded-full'
+          onClick={() => {
+            let x = document.body.scrollHeight
+
+            window.scrollTo(0, x)
+          }}
+        >
+
+        </div>
+      }
     </div>
 
   )
 }
 
-export default Chat
+export default ChatBox
