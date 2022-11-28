@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/chatup/static/css/main.25b1eb7c.css",
+    "main.js": "/chatup/static/js/main.b452e64b.js",
+    "index.html": "/chatup/index.html",
+    "main.25b1eb7c.css.map": "/chatup/static/css/main.25b1eb7c.css.map",
+    "main.b452e64b.js.map": "/chatup/static/js/main.b452e64b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.25b1eb7c.css",
+    "static/js/main.b452e64b.js"
+  ]
+}
